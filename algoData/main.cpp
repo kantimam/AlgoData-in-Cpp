@@ -7,6 +7,48 @@ using namespace std;
 
 class Algo {
     public:
+		static void mergeSort(int arr[], const int length)
+		{
+			if (length>2) {
+				mergeSort(arr, 0, length-1);
+			}
+		}
+
+		static void mergeSort(float arr[], const int length)
+		{
+			if (length > 2) {
+				mergeSort(arr, 0, length-1);
+			}
+		}
+
+		static void mergeSort(unsigned int arr[], const int length)
+		{
+			if (length > 2) {
+				mergeSort(arr, 0, length-1);
+			}
+		}
+
+		static void mergeSort(double arr[], const int length)
+		{
+			if (length > 2) {
+				mergeSort(arr, 0, length-1);
+			}
+		}
+
+		static void mergeSort(long arr[], const int length)
+		{
+			if (length > 2) {
+				mergeSort(arr, 0, length-1);
+			}
+		}
+
+		static void mergeSort(long long arr[], const int length)
+		{
+			if (length > 2) {
+				mergeSort(arr, 0, length-1);
+			}
+		}
+
 		template<typename T>
         static void mergeSort(T arr[], const int start, const int end)
 	    {
@@ -103,10 +145,12 @@ int main()
 
 	cout << "created array with " << arrLength << " items" << endl << endl;
 
+	// create array with n(arrLength) random items
     int* arr = randomIntArr(arrLength);
 	Algo::printArray(arr, arrLength);
 
-    Algo::mergeSort(arr, 0, arrLength - 1);
+
+    Algo::mergeSort(arr, arrLength);
     cout << endl << endl << "sorted array" << endl;
 	Algo::printArray(arr, arrLength);
 
