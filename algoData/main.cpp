@@ -1,4 +1,5 @@
 #include <iostream>
+#include <vector>       
 
 using namespace std;
 
@@ -49,18 +50,56 @@ class Algo {
 			}
 		}
 
+
+		// create some overloads sice template wont work here :<
 		template<typename T>
-        static void mergeSort(T arr[], const int start, const int end)
-	    {
-		    if (start < end) {
-			    int mid = start + (end - start) / 2;
+		static void insertionSort(T arr[], unsigned int length)
+		{
+			T valueToInsert;
+			unsigned int i = 0;
+			unsigned int j;
 
-			    mergeSort(arr, start, mid);
-			    mergeSort(arr, mid + 1, end);
+			for (; i < length; i++) {
+				valueToInsert = arr[i];
+				j = i;
+				while (j > 0 && arr[j-1]>valueToInsert) { // while the prev value is bigger than valueToInsert and index j is more than 0 
+					arr[j] = arr[j - 1]; // move value 1 index to the right to make space for value that needs to be inserted
+					j--;
+				}
+				// once the prev value arr[j-1] is no longer bigger thant valueToInsert you found the place to insert at arr[j]
+				arr[j] = valueToInsert;
+			}
+		}
 
-			    merge(arr, start, mid, end);
-		    }
-	    }
+		template<typename T>
+		static void insertionSort(vector<T> &arr)
+		{
+			auto length = arr.size();
+			if (length < 2) return; // if there is only 1 item there is not much to sort
+
+			T valueToInsert;
+			unsigned int i = 0;
+			unsigned int j;
+
+			for (; i < length; i++) {
+				valueToInsert = arr.at(i);
+				j = i;
+				while (j > 0 && arr.at(j - 1) > valueToInsert) { // while the prev value is bigger than valueToInsert and index j is more than 0 
+					arr.at(j) = arr.at(j-1); // move value 1 index to the right to make space for value that needs to be inserted
+					j--;
+				}
+				// once the prev value arr[j-1] is no longer bigger thant valueToInsert you found the place to insert at arr[j]
+				arr.at(j) = valueToInsert;
+			}
+		}
+
+		template<typename T>
+		static void printArray(vector<T> &arr) {
+			const unsigned int len = arr.size();
+			for (auto i = 0; i < len; i++) {
+				cout << arr[i] << endl;
+			}
+		}
 
 		template<typename T>
 		static void printArray(T arr[],unsigned int arrLength) {
@@ -70,6 +109,20 @@ class Algo {
 		}
 
     private:
+		template<typename T>
+		static void mergeSort(T arr[], const int start, const int end)
+		{
+			if (start < end) {
+				int mid = start + (end - start) / 2;
+
+				mergeSort(arr, start, mid);
+				mergeSort(arr, mid + 1, end);
+
+				merge(arr, start, mid, end);
+			}
+		}
+
+
 		template<typename T>
         static void merge(T arr[], const int start, const int mid, const int end)
 	    {
@@ -117,6 +170,7 @@ class Algo {
 	    }
 
 		
+		
 };
 
 int* randomIntArr(unsigned int length) {
@@ -129,31 +183,41 @@ int* randomIntArr(unsigned int length) {
 
 int main()
 {
-	unsigned int arrLength;
+	//unsigned int arrLength;
 
-	cout << "how long should your array be?" << endl;
+	//cout << "how long should your array be?" << endl;
 
-	while (!(cin >> arrLength)) {
-		if (cin.eof()) {
-			cout << "user terminated input." << endl;
-			return 0;
-		}
-		cout << "please enter a valid integer" << endl;
-		cin.clear();
-		cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Clear input buffer
-	}
+	//while (!(cin >> arrLength)) {
+	//	if (cin.eof()) {
+	//		cout << "user terminated input." << endl;
+	//		return 0;
+	//	}
+	//	cout << "please enter a valid integer" << endl;
+	//	cin.clear();
+	//	cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Clear input buffer
+	//}
 
-	cout << "created array with " << arrLength << " items" << endl << endl;
+	//cout << "created array with " << arrLength << " items" << endl << endl;
 
 	// create array with n(arrLength) random items
-    int* arr = randomIntArr(arrLength);
-	Algo::printArray(arr, arrLength);
+    /*int* arr = randomIntArr(arrLength);
+	Algo::printArray(arr, arrLength);*/
 
 
-    Algo::mergeSort(arr, arrLength);
-    cout << endl << endl << "sorted array" << endl;
-	Algo::printArray(arr, arrLength);
+    //Algo::mergeSort(arr, arrLength);
+	//Algo::insertionSort(arr, arrLength);	
+	//cout << endl << endl << "sorted array" << endl;
+	//Algo::printArray(arr, arrLength);
 
+
+	//vector<unsigned int> arrVector(*arr, *arr+arrLength);
+
+	vector<unsigned int> arrVector{4, 9, 2, 1,15,3,99,2};
+	Algo::printArray(arrVector);
+	
+	Algo::insertionSort(arrVector);
+	cout << endl << endl << "sorted array" << endl;
+	Algo::printArray(arrVector);
 
     return 0;
 }
